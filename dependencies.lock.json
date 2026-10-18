@@ -1,0 +1,461 @@
+{
+  "java": 17,
+  "minecraft": "1.20.1",
+  "forge": "47.4.10",
+  "mapping_namespace": "SRG",
+  "note": "Original compilation classpath snapshot; no dependency binaries included.",
+  "artifacts": [
+    {
+      "filename": "pneuma.jar",
+      "sha256": "58f2203b094e402c63be0e36729bb811c9c9b0824746f3ab1d9b9e7d66234b82"
+    },
+    {
+      "filename": "voxy.jar",
+      "sha256": "13c5fa487e1d19ff369d83eb3b2a3f3ed0b62412bad8d8518e7c5635221fb35b"
+    },
+    {
+      "filename": "tracers.jar",
+      "sha256": "289d4dfce0fc97539c14c205e1788946da7d05d1f28879215a87c1f2b8ca9e4c"
+    },
+    {
+      "filename": "forge-1.20.1-47.4.10-srg.jar",
+      "sha256": "2d170b655a685eb2c4810842370ecb17f7cc61443a54f1b678b22180c894e868"
+    },
+    {
+      "filename": "client-extra.jar",
+      "sha256": "f43d1ac034a8907edab190a17501fd4ca2b0af107d4231da364eeca8ab5ee317"
+    },
+    {
+      "filename": "fmlloader-1.20.1-47.4.10.jar",
+      "sha256": "12d27a5d59286ab5fa8cc90cb2c73eb21f4624b765ce2e6408d5e397a6a6699b"
+    },
+    {
+      "filename": "JarJarSelector-0.3.19.jar",
+      "sha256": "f7acfbafc9a715ee7d7ce2d539815b3ebccebc5064e0a7252c4a6a1c71d1e740"
+    },
+    {
+      "filename": "JarJarMetadata-0.3.19.jar",
+      "sha256": "6141c710b5b7b673bd544740a31339f0754d7a794cc46b952b7ef7897b7ce265"
+    },
+    {
+      "filename": "guava-31.1-jre.jar",
+      "sha256": "a42edc9cab792e39fe39bb94f3fca655ed157ff87a8af78e1d6ba5b07c4a00ab"
+    },
+    {
+      "filename": "jsr305-3.0.2.jar",
+      "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
+    },
+    {
+      "filename": "java-objc-bridge-1.1.jar",
+      "sha256": "77e34a13bccffc6c8b1a0e3ed46ddb0ea7dd56f2104ecdfacaaec9e4054ac332"
+    },
+    {
+      "filename": "forgespi-7.0.1.jar",
+      "sha256": "2298eaba25d066afd9b329de7f75e7bf78ef47f3045e6ecb0e40428d875e4b84"
+    },
+    {
+      "filename": "mergetool-1.1.5-api.jar",
+      "sha256": "39d9a3d9277c1402b8e7b97f917ce278241cf1796312aec85b87f19a376dd99a"
+    },
+    {
+      "filename": "annotations-24.0.1.jar",
+      "sha256": "61666dbce7e42e6c85b43c04fcfb8293a21dcb55b3c80e869270ce42c01a6b35"
+    },
+    {
+      "filename": "securejarhandler-2.1.10.jar",
+      "sha256": "7ec9207f47bc8847a16566b9a3b4ced8d073c49592897eb30ce2aaf643fdfcab"
+    },
+    {
+      "filename": "coremods-5.2.4.jar",
+      "sha256": "db32dc040af2eea1216a145a3f5fc6bc45d006740fe696da5a9a445006167c9f"
+    },
+    {
+      "filename": "modlauncher-10.0.9.jar",
+      "sha256": "a9b3dcde1434d02702a251ef1d0671dbc90250b349778e1c27151d86c2a4aa81"
+    },
+    {
+      "filename": "nashorn-core-15.4.jar",
+      "sha256": "6f816e84dfd63a81d4eaa7829c08337bbaff3ec683ff3bf6bbd90d017a00dc6f"
+    },
+    {
+      "filename": "asm-commons-9.8.jar",
+      "sha256": "3301a1c1cb4c59fcc5292648dac1d7c5aed4c0f067dfbe88873b8cdfe77404f4"
+    },
+    {
+      "filename": "asm-util-9.8.jar",
+      "sha256": "8ba0460ecb28fd0e2980e5f3ef3433a513a457bc077f81a53bdc75b587a08d15"
+    },
+    {
+      "filename": "asm-analysis-9.8.jar",
+      "sha256": "e640732fbcd3c6271925a504f125e38384688f4dfbbf92c8622dfcee0d09edb9"
+    },
+    {
+      "filename": "asm-tree-9.8.jar",
+      "sha256": "14b7880cb7c85eed101e2710432fc3ffb83275532a6a894dc4c4095d49ad59f1"
+    },
+    {
+      "filename": "asm-9.8.jar",
+      "sha256": "876eab6a83daecad5ca67eb9fcabb063c97b5aeb8cf1fca7a989ecde17522051"
+    },
+    {
+      "filename": "accesstransformers-8.0.4.jar",
+      "sha256": "3225e2a513f658df686fe8b2ae5b4808525851a2c238ce65e38847cc4ffc6441"
+    },
+    {
+      "filename": "antlr4-4.9.1.jar",
+      "sha256": "e6bd18f14126ab85a42dcb80ba5f67da2f35ba164ec5a64d40024bd0e7436584"
+    },
+    {
+      "filename": "antlr4-runtime-4.9.1.jar",
+      "sha256": "a80502c3140ae7acfbb1f57847c8eb1c101461a969215ec38c3f1ebdff61ac29"
+    },
+    {
+      "filename": "fmlcore-1.20.1-47.4.10.jar",
+      "sha256": "14cbfb1c8037cad687c3195b10f2775c016b0e32a4aab8263b98e98e023020c4"
+    },
+    {
+      "filename": "eventbus-6.0.5.jar",
+      "sha256": "ae8bd4ea6b32509ace6dba904698b52e13d222625488c8291a05ab870e66c1dd"
+    },
+    {
+      "filename": "unsafe-0.2.0.jar",
+      "sha256": "946937e182ab3b518b5b88264f367e1f35ac12bc83abed220490c60c717be239"
+    },
+    {
+      "filename": "toml-3.6.4.jar",
+      "sha256": "3cb3d0ef3352e204cda68215fbe41afdc7f56425ef4fd8e84006964a656117d4"
+    },
+    {
+      "filename": "core-3.6.4.jar",
+      "sha256": "1bc71c67b54ba9c8e5030b3ddaef7dee16ae43fee6850368f76b0cffef819700"
+    },
+    {
+      "filename": "maven-artifact-3.8.5.jar",
+      "sha256": "91172bc294d6eab02fc9f45f4ea01fd0e418962d128cf489abea7b6957d988ee"
+    },
+    {
+      "filename": "typetools-0.6.3.jar",
+      "sha256": "408300867804be05d1083cc0287dd3a21295a9e76090e288013ba5a4182dc96d"
+    },
+    {
+      "filename": "terminalconsoleappender-1.2.0.jar",
+      "sha256": "912e432c9355c4b2025d788ed87fd72bb95542e2fc967ad6875fbbeb6e1c7a1c"
+    },
+    {
+      "filename": "jline-reader-3.12.1.jar",
+      "sha256": "4d1037c7110027ed64816c510fad2afa0a5aa9bbc38fb9f0e772870823fcad2a"
+    },
+    {
+      "filename": "jline-terminal-3.12.1.jar",
+      "sha256": "eb6115680f732562f0e8e6777f127dece81e23b25015925f3c4a2a900d48cc9e"
+    },
+    {
+      "filename": "mixin-0.8.5.jar",
+      "sha256": "ca15a907e4d1f6b38cefed51d7df96a83347dcfb0bc8ced53111519e991d887d"
+    },
+    {
+      "filename": "bootstraplauncher-1.1.2.jar",
+      "sha256": "853b61fd165caf4103b5b969afbc5b2b037abc310ed644518cd967b50d5189a4"
+    },
+    {
+      "filename": "JarJarFileSystems-0.3.19.jar",
+      "sha256": "beaa1875dd433f2dd152395c3e3c52ef2bb99f20b74860a07d70f7c4626e56d4"
+    },
+    {
+      "filename": "fmlearlydisplay-1.20.1-47.4.10.jar",
+      "sha256": "eb28f2cfed8bd7636bf043cc8b6be03a1bdfd30861f3085e74dd429a5ba2b12c"
+    },
+    {
+      "filename": "javafmllanguage-1.20.1-47.4.10.jar",
+      "sha256": "d3f6fb3c6e0a569ff475c1f5757406e5aa1ea956fd0c289bba361402b76e4232"
+    },
+    {
+      "filename": "lowcodelanguage-1.20.1-47.4.10.jar",
+      "sha256": "f5233104da2d303dbb4394aceb36ace4d51c7b14e2fc48c8dcdbaca2335e6607"
+    },
+    {
+      "filename": "mclanguage-1.20.1-47.4.10.jar",
+      "sha256": "de63a3c96c2202c821ca6e9c5d3a66b66b39626074cab824fcaa5629ad033ed0"
+    },
+    {
+      "filename": "oshi-core-6.2.2.jar",
+      "sha256": "efbca93df18f3eb16964a92d8342f0674dd5d90da575ef8e04ef2e4eabec6910"
+    },
+    {
+      "filename": "gson-2.10.jar",
+      "sha256": "0cdd163ce3598a20fc04eee71b140b24f6f2a3b35f0a499dbbdd9852e83fbfaf"
+    },
+    {
+      "filename": "failureaccess-1.0.1.jar",
+      "sha256": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26"
+    },
+    {
+      "filename": "icu4j-71.1.jar",
+      "sha256": "91c4f8ebf0ceb489547098fe9d5c09a65eb419caea6ed714867f5280800bcf1a"
+    },
+    {
+      "filename": "authlib-4.0.43.jar",
+      "sha256": "697043d19e0b84b04f011dbec1bec3d80c04d8c468e7e4c6b221c0183bc1c0ef"
+    },
+    {
+      "filename": "blocklist-1.0.10.jar",
+      "sha256": "830bfd639c8db49236bbd8e45d3a2b8c96c56ff654a10118654958a6235d4c44"
+    },
+    {
+      "filename": "brigadier-1.1.8.jar",
+      "sha256": "cf65afa612fffbe4dc976115dac0312f48b9c84b3ddaf58bec8018a9454440d7"
+    },
+    {
+      "filename": "datafixerupper-6.0.8.jar",
+      "sha256": "6e38e9fc5404be7e45189aa14ca6058bc85df20d6760a212b6d48e666abf0fef"
+    },
+    {
+      "filename": "logging-1.1.1.jar",
+      "sha256": "c1756eaf0685da94142bacc84309bb7ccddf65e004638c3299ab645710b5938c"
+    },
+    {
+      "filename": "patchy-2.2.10.jar",
+      "sha256": "16d70e7968b45caffc81576268eb000f473fb60bf257182d3447dea8ec919d5a"
+    },
+    {
+      "filename": "text2speech-1.17.9.jar",
+      "sha256": "c2a95b499e76fada7dd63e9b0ec797b678d411c2b0ee6f37f4dc674662bfb0af"
+    },
+    {
+      "filename": "httpclient-4.5.13.jar",
+      "sha256": "6fe9026a566c6a5001608cf3fc32196641f6c1e5e1986d1037ccdbd5f31ef743"
+    },
+    {
+      "filename": "commons-codec-1.15.jar",
+      "sha256": "b3e9f6d63a790109bf0d056611fbed1cf69055826defeb9894a71369d246ed63"
+    },
+    {
+      "filename": "commons-io-2.11.0.jar",
+      "sha256": "961b2f6d87dbacc5d54abf45ab7a6e2495f89b75598962d8c723cea9bc210908"
+    },
+    {
+      "filename": "commons-logging-1.2.jar",
+      "sha256": "daddea1ea0be0f56978ab3006b8ac92834afeefbd9b7e4e6316fca57df0fa636"
+    },
+    {
+      "filename": "netty-handler-4.1.82.Final.jar",
+      "sha256": "31015505983dc57eec491ad4873411ba51f0f3beb24d22d509336c72511019cb"
+    },
+    {
+      "filename": "netty-codec-4.1.82.Final.jar",
+      "sha256": "170c0ce091c2e1cc1d952d87a6a30deb773922507bbc609b962b539f03f53407"
+    },
+    {
+      "filename": "netty-transport-classes-epoll-4.1.82.Final.jar",
+      "sha256": "73f827fca18870959b9581c6875130576e5de684cfb4e6f346f8c1c266840ba3"
+    },
+    {
+      "filename": "netty-transport-native-unix-common-4.1.82.Final.jar",
+      "sha256": "1096f16527a51dd5f44ced90636110a429cc7359a9a8a91db25000b747793429"
+    },
+    {
+      "filename": "netty-transport-4.1.82.Final.jar",
+      "sha256": "c210069be4ab4120f5ac7cb5e4a126d3a007e78a64fd44c9971220e013dbaef1"
+    },
+    {
+      "filename": "netty-buffer-4.1.82.Final.jar",
+      "sha256": "a7ce7f6d8c1e82b044cd56765dab4338251596416de03b1f9a05d7402429c29d"
+    },
+    {
+      "filename": "netty-resolver-4.1.82.Final.jar",
+      "sha256": "4cfeba7ec535964a35722178aeecc87ec186dba0203d04389a850e8e62575383"
+    },
+    {
+      "filename": "netty-common-4.1.82.Final.jar",
+      "sha256": "d5923db1cc68b26baf5368f1f76ec2c6100d12db8406c6de00eb6dbc08052550"
+    },
+    {
+      "filename": "fastutil-8.5.9.jar",
+      "sha256": "9578bf2a1700cf20d21746a2ee89e57ba1abbd37fa9feda68ff5e9a28473a7f9"
+    },
+    {
+      "filename": "jna-platform-5.12.1.jar",
+      "sha256": "8ce969116cac95bd61b07a8d5e07174b352e63301473caac72c395e3c08488d2"
+    },
+    {
+      "filename": "jna-5.12.1.jar",
+      "sha256": "91a814ac4f40d60dee91d842e1a8ad874c62197984403d0e3c30d39e55cf53b3"
+    },
+    {
+      "filename": "jopt-simple-5.0.4.jar",
+      "sha256": "df26cc58f235f477db07f753ba5a3ab243ebe5789d9f89ecf68dd62ea9a66c28"
+    },
+    {
+      "filename": "commons-compress-1.21.jar",
+      "sha256": "6aecfd5459728a595601cfa07258d131972ffc39b492eb48bdd596577a2f244a"
+    },
+    {
+      "filename": "commons-lang3-3.12.0.jar",
+      "sha256": "d919d904486c037f8d193412da0c92e22a9fa24230b9d67a57855c5c31c7e94e"
+    },
+    {
+      "filename": "httpcore-4.4.15.jar",
+      "sha256": "3cbaed088c499a10f96dde58f39dc0e7985171abd88138ca1655a872011bb142"
+    },
+    {
+      "filename": "log4j-core-2.19.0.jar",
+      "sha256": "b4a1796fab7bfc36df015c1b4052459147997e8d215a7199d71d05f9e747e4f4"
+    },
+    {
+      "filename": "log4j-slf4j2-impl-2.19.0.jar",
+      "sha256": "825605eacb2d5605b105c53d4108c18125e0f82f62960d0be583278b9c524f3c"
+    },
+    {
+      "filename": "log4j-api-2.19.0.jar",
+      "sha256": "5ccb24ad9f92e768d0bc456d3061a737951262df803e004d2cad096b75a88d60"
+    },
+    {
+      "filename": "joml-1.10.5.jar",
+      "sha256": "cac9f22f83a7aa33eebda73c16ff5261e3cb4911b6bafcf4c79ea486099d0c9a"
+    },
+    {
+      "filename": "lwjgl-glfw-3.3.1.jar",
+      "sha256": "08bbc34eb752f863e37f83ab1c7b0c22f7cb26d0f8fb0a4a4a8c6028ac45b385"
+    },
+    {
+      "filename": "lwjgl-glfw-3.3.1-natives-windows.jar",
+      "sha256": "9e744ecb84029d7acedae876e2557659184a29afee55e453f4ab2567349bf849"
+    },
+    {
+      "filename": "lwjgl-jemalloc-3.3.1.jar",
+      "sha256": "ee49fc0a8d9456452e54cd6f777823eda666e2c63fc14d65b2fd2cc2cfed5dbe"
+    },
+    {
+      "filename": "lwjgl-jemalloc-3.3.1-natives-windows.jar",
+      "sha256": "225f37df5500614675be9acb6278cb6c9c80a349264798b2cfc7ec434f1ed472"
+    },
+    {
+      "filename": "lwjgl-openal-3.3.1.jar",
+      "sha256": "7325ee1b91a8a10c0626c69b557a88f2df6ac1bdca0e52e2a92d324249f2cad0"
+    },
+    {
+      "filename": "lwjgl-openal-3.3.1-natives-windows.jar",
+      "sha256": "5f7e666aa24ca8b3fb758e72c03ffb9d809b30489c6a7b47ead67c6977ff654e"
+    },
+    {
+      "filename": "lwjgl-opengl-3.3.1.jar",
+      "sha256": "e436d2144f3a36fff772fd64233316809b795f390defd4d55660fc686e7c2834"
+    },
+    {
+      "filename": "lwjgl-opengl-3.3.1-natives-windows.jar",
+      "sha256": "851b9b593cac21e3af51dd4c303e8df3fe6a344a3f81d6b9bcc186e7e540bfda"
+    },
+    {
+      "filename": "lwjgl-stb-3.3.1.jar",
+      "sha256": "64e5ccce2fc7cbcf0c834a5be8642d9e2498ce3fe31c14ff1df741878a3f8121"
+    },
+    {
+      "filename": "lwjgl-stb-3.3.1-natives-windows.jar",
+      "sha256": "fd6ff7a26e8645af79a0d21ca73e8dc9e473f3402d1333e544a81d21ca5077e7"
+    },
+    {
+      "filename": "lwjgl-tinyfd-3.3.1.jar",
+      "sha256": "488f51ed95f0fac48d1d87cb0e3bac08c012dcbf6ef3c1688685d708cdbccd56"
+    },
+    {
+      "filename": "lwjgl-tinyfd-3.3.1-natives-windows.jar",
+      "sha256": "ecc7152109680597569d9b322045f29c1a7ddeec7182cf69189dae154138b9c8"
+    },
+    {
+      "filename": "lwjgl-3.3.1.jar",
+      "sha256": "cf83f90e32fb973ff5edfca4ef35f55ca51bb70a579b6a1f290744f552e8e484"
+    },
+    {
+      "filename": "lwjgl-3.3.1-natives-windows.jar",
+      "sha256": "093d13d62a6434bc656bf10a3b37e2530fd9af3b0bc20f8e9545be58659d1443"
+    },
+    {
+      "filename": "noexception-1.7.1.jar",
+      "sha256": "3d70aaea3904918587a21bdf99ab6ade9ab1dd0eaf6119344ba513f60f575816"
+    },
+    {
+      "filename": "slf4j-api-2.0.1.jar",
+      "sha256": "b36b99b8d99ea7857554d9b25dfdbd1fb25378c926f7b9e0249983c99335b2c4"
+    },
+    {
+      "filename": "plexus-utils-3.3.0.jar",
+      "sha256": "76d174792540e2775af94d03d10fb2d3c776e2cd0ac0ebf427d3e570072bb9ce"
+    },
+    {
+      "filename": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99"
+    },
+    {
+      "filename": "checker-qual-3.12.0.jar",
+      "sha256": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb"
+    },
+    {
+      "filename": "error_prone_annotations-2.11.0.jar",
+      "sha256": "721cb91842b46fa056847d104d5225c8b8e1e8b62263b993051e1e5a0137b7ec"
+    },
+    {
+      "filename": "j2objc-annotations-1.3.jar",
+      "sha256": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b"
+    },
+    {
+      "filename": "ST4-4.3.jar",
+      "sha256": "28547dba48cfceb77b6efbfe069aebe9ed3324ae60dbd52093d13a1d636ed069"
+    },
+    {
+      "filename": "antlr-runtime-3.5.2.jar",
+      "sha256": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734"
+    },
+    {
+      "filename": "org.abego.treelayout.core-1.0.3.jar",
+      "sha256": "fa5e31395c39c2e7d46aca0f81f72060931607b2fa41bd36038eb2cb6fb93326"
+    },
+    {
+      "filename": "javax.json-1.0.4.jar",
+      "sha256": "0e1dec40a1ede965941251eda968aeee052cc4f50378bc316cc48e8159bdbeb4"
+    },
+    {
+      "filename": "TaCZ Mesh Fix.jar",
+      "sha256": "aaec9a9f1d34a1c6d1868d8f2fc04742107d7d7f70c3583984272160dd1ee319"
+    },
+    {
+      "filename": "simplebedrockmodel-2.2.2-forge+mc1.20.1.jar",
+      "sha256": "88d8b6d4d59c7a706caaedd3712ef74e51204d803d6a23118e5d463df0e656da"
+    },
+    {
+      "filename": "commons-math3-3.6.1.jar",
+      "sha256": "1e56d7b058d28b65abd256b8458e3885b674c1d588fa43cd7d1cbb9c7ef2b308"
+    },
+    {
+      "filename": "mixinextras-forge-0.3.6.jar",
+      "sha256": "66eeeea6d1751c9f8f3abd32938fe5ee8113ae1a2730a9a29489300ffe02dd0f"
+    },
+    {
+      "filename": "luaj-core-3.0.8-figura.jar",
+      "sha256": "6050678ca1dad5e2a4c401cc9ce968d282d30105b2ea46f79c30abccdfa30fbe"
+    },
+    {
+      "filename": "luaj-jse-3.0.8-figura.jar",
+      "sha256": "1783d249b5152c6f110c1bcca5fb0d4ef0075fc291c912f6b74e2bb61472e95e"
+    },
+    {
+      "filename": "bcel-6.6.1.jar",
+      "sha256": "50e909f555c772285d0f282d22ec7ca246010fa6996d40226357a28555445904"
+    },
+    {
+      "filename": "oculus-mc1.20.1-1.8.0.jar",
+      "sha256": "0945df0cba0f62b3901dd80c3268e5311b770ece78c78037a45db12ac0425fef"
+    },
+    {
+      "filename": "curios-forge-5.14.1+1.20.1.jar",
+      "sha256": "1e817919a35b37cf30524aaec73f0ca5130452f23f168f844854df282eb8e51f"
+    },
+    {
+      "filename": "embeddium-0.3.31+mc1.20.1.jar",
+      "sha256": "eed3d1325f2acc2fd4e69bb495e5ccb91d962126ac5330f0582ebc2a3daf47fb"
+    },
+    {
+      "filename": "cloth-config-11.1.136-forge.jar",
+      "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+    }
+  ]
+}

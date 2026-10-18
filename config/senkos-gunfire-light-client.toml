@@ -1,0 +1,81 @@
+#Enable client GPU gunfire lighting.
+enabled = true
+
+[muzzle]
+	#Enable the muzzle flash LIGHT. Does not change TaCZ's muzzle flash particles.
+	enabled = true
+	#Finite radius in blocks. Light is zero outside this sphere.
+	#Range: 0.5 ~ 32.0
+	radius = 10.0
+	#Unsuppressed muzzle brightness. Higher values make nearby surfaces brighter.
+	#Range: 0.0 ~ 64.0
+	intensity = 8.0
+	#Flash duration in seconds of simulation time.
+	#Range: 0.02 ~ 0.5
+	durationSeconds = 0.12
+	#Suppressed muzzle light range. Defaults approximate reduced flash; real devices vary.
+	#Range: 0.25 ~ 32.0
+	suppressedRadius = 2.5
+	#Suppressed muzzle brightness. Default 0.4 is a game approximation, not a measured universal ratio. Zero removes this light.
+	#Range: 0.0 ~ 64.0
+	suppressedIntensity = 0.4
+	#Suppressed flash duration in seconds.
+	#Range: 0.01 ~ 0.5
+	suppressedDurationSeconds = 0.04
+
+[flashHider]
+	#Light range for identified flash hiders, including flash-hiding hybrids.
+	#Range: 0.25 ~ 32.0
+	radius = 3.0
+	#Flash-hider muzzle brightness. Approximate game default; does not change bullet light or TaCZ particles.
+	#Range: 0.0 ~ 64.0
+	intensity = 0.8
+	#Flash-hider muzzle light duration in seconds.
+	#Range: 0.01 ~ 0.5
+	durationSeconds = 0.05
+
+[gunpackOverrides]
+	#Extra attachment IDs treated as flash hiders. Clear flash_hider/flash_suppressor IDs are also recognized; hider alone is not.
+	flashHiderAttachments = ["suffuse:cslr4_flash_hider"]
+	#Gun IDs with integral suppression that their pack does not declare through TaCZ's suppression property. Existing equipped/built-in suppressors are detected separately.
+	integrallySuppressedGuns = ["ccrp:aac_honeybadger", "ccrp:honeybadger", "cib:asval", "eft:asval"]
+
+[bullet]
+	#Light all TaCZ bullets, whether or not a tracer is visible.
+	enabled = true
+	#Bullet light radius in blocks. Bullets farther from a surface than this do not light it.
+	#Range: 0.25 ~ 16.0
+	radius = 4.0
+	#Bullet brightness, independent of muzzle brightness.
+	#Range: 0.0 ~ 64.0
+	intensity = 4.0
+	#Short visual fade after a bullet is removed, to keep brief flights visible. Zero disables it.
+	#Range: 0.0 ~ 0.25
+	fadeSeconds = 0.06
+
+[model]
+	#Light the first-person gun and hands using their actual rendering projection.
+	enabled = true
+	#First-person gun/hand light multiplier. World and third-person lighting use the settings above.
+	#Range: 0.0 ~ 4.0
+	intensity = 0.1
+
+[rendering]
+	#Overall light brightness multiplier for all light sources.
+	#Range: 0.0 ~ 8.0
+	exposure = 3.0
+	#Recover visible light response on dark surfaces. Zero keeps their existing darkness; higher values brighten night lighting.
+	#Range: 0.0 ~ 1.0
+	nightVisibility = 0.25
+	#How quickly light weakens with distance inside its finite radius. Smaller values carry more brightness farther.
+	#Range: 0.01 ~ 4.0
+	distanceFalloff = 0.25
+	#Use visible depth to reduce light bleeding behind nearby surfaces. Turning off is faster.
+	contactShadows = true
+	#Maximum simultaneous lights affecting a screen area. Lower values reduce GPU work during heavy gunfire.
+	#Range: 1 ~ 32
+	lightsPerTile = 32
+	#Maximum camera distance for selecting lights. Does not change any emitter's radius.
+	#Range: 32.0 ~ 512.0
+	maxDistance = 256.0
+

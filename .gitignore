@@ -1,0 +1,11 @@
+build/
+.gradle/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+*.jar
+classpath.local.txt
+local.properties
+.env
+.env.*

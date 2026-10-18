@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.senko.gunfirelight.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": ["CaptureFirstPersonMuzzleMixin", "CaptureMuzzleNodeMixin", "ShaderFinalLightMixin", "CaptureHandLightPoseMixin", "HandLightBaseMixin", "HandLightStageMixin", "BulletLightTickMixin"],
+  "injectors": {"defaultRequire": 1}
+}
