@@ -3,11 +3,11 @@ loaderVersion="[47,)"
 license="All Rights Reserved"
 [[mods]]
 modId="senkosgunfirelight"
-version="0.2.7"
-displayName="Senkos Illuminated Gunfire"
+version="0.3.0-sbw.2"
+displayName="[Tacz/Sbw] Gunfire light"
 authors="Senko"
 displayTest="IGNORE_SERVER_VERSION"
-description='''Client-side finite-range muzzle and bullet point lights for TaCZ. GPU surface lighting with smooth falloff, bounded source selection and tiled shading. Includes its own light optimizations; does not modify Minecraft block-light propagation.'''
+description='''Client-side finite-range muzzle and bullet point lights for TaCZ and optional Superb Warfare 0.8.9.2. GPU surface lighting with smooth falloff, bounded source selection and tiled shading. Includes its own light optimizations; does not modify Minecraft block-light propagation.'''
 [[dependencies.senkosgunfirelight]]
 modId="forge"
 mandatory=true
@@ -30,5 +30,12 @@ side="CLIENT"
 modId="tacz"
 mandatory=true
 versionRange="[1.1.8,1.2)"
+ordering="AFTER"
+side="CLIENT"
+
+[[dependencies.senkosgunfirelight]]
+modId="superbwarfare"
+mandatory=false
+versionRange="[0.8.9.2,0.8.10)"
 ordering="AFTER"
 side="CLIENT"

@@ -456,6 +456,61 @@
     {
       "filename": "cloth-config-11.1.136-forge.jar",
       "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+    },
+    {
+      "filename": "superbwarfare-0.8.9.2-mc1.20.1-65d985a64-all.jar",
+      "sha256": "559930003f638080de648a8621821d785158768c3f69a762094ef4c8d3c4cc12"
+    },
+    {
+      "filename": "kotlinforforge-4.11.0-all.jar",
+      "sha256": "ef988f86d170af499d147ea8a5c34c99dbd6d8f4a5ad236a4b43818dc4470a10"
+    },
+    {
+      "filename": "cloth-config-forge-11.1.106.jar",
+      "sha256": "29cc609a80f3cf27a8e53a43473b71ff24ecb3a6eb480c610017f8a98429e867"
+    },
+    {
+      "filename": "flywheel-forge-1.20.1-1.0.5.jar",
+      "sha256": "316ca250f19244956b5f0cd75329309ea65a77b4b8da854389b6a9222e7f427c"
+    },
+    {
+      "filename": "geckolib-forge-1.20.1-4.4.6.jar",
+      "sha256": "0de40c205130fe07e79440f1250a22459e32618e1afdfcd44eb9626044c12f87"
+    },
+    {
+      "filename": "kfflang-4.11.0.jar",
+      "sha256": "618d5d46c69c955f94e4bcb321b5741f9f4101b608d128d2de7adf7603185713"
+    },
+    {
+      "filename": "kfflib-4.11.0.jar",
+      "sha256": "43f5315234f8d81c06392b4c29778a72c274bb4636b04fc4846e9aab9c00b410"
+    },
+    {
+      "filename": "kffmod-4.11.0.jar",
+      "sha256": "78bc484adb6fad9fdb7c2d44e4adefb6f53c31284f198c2017bf6840dfef8a95"
+    },
+    {
+      "filename": "Ponder-Forge-1.20.1-1.0.91.jar",
+      "sha256": "86e6b64372aba6d9c56f2c35725ea26d8febf2c75eed9950566e7f2849443b34"
+    },
+    {
+      "filename": "rhino-1.8.1-SNAPSHOT.jar",
+      "sha256": "4aab6124356e91e16263fa065556444b96bf5d9438e1399914cd971ef8b73616"
+    },
+    {
+      "filename": "simplebedrockmodel-2.5.1-forge-mc1.20.1.jar",
+      "sha256": "323612d16de1d68a1dadc02b3329bfc0614d015ef70995bce7098adf38a437dc"
+    },
+    {
+      "filename": "mae-1.1.4.jar",
+      "sha256": "33eaf56a1251eecf7ab35c5d1a320b354ab1da5e70ec0f59d6c679ac8d71c07c"
     }
-  ]
+  ],
+  "sbw_integration": {
+    "minecraft": "1.20.1",
+    "sbw": "0.8.9.2",
+    "source_commit": "65d985a6447cf6b119b72b73a636e79adecbb44f",
+    "optional": true,
+    "note": "Optional SBW integration build/test inputs. Dependencies are not redistributed."
+  }
 }

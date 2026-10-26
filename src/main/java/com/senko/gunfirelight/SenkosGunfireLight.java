@@ -3,7 +3,9 @@ package com.senko.gunfirelight;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.senko.gunfirelight.render.GunfireLightRenderer;
 import com.senko.gunfirelight.render.HandLighting;
+import com.senko.gunfirelight.render.LightPerformanceProfiler;
 import com.senko.gunfirelight.source.GunfireSources;
+import com.senko.gunfirelight.compat.SbwIntegration;
 import com.tacz.guns.api.event.common.GunFireEvent;
 import com.tacz.guns.compat.oculus.OculusCompat;
 import net.minecraft.client.Minecraft;
@@ -32,10 +34,13 @@ public final class SenkosGunfireLight {
     public SenkosGunfireLight() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, GunfireConfig.SPEC, "senkos-gunfire-light-client.toml");
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientConfigRegistration::register);
-        LOG.info("Senkos Illuminated Gunfire 0.2.7: continuous GPU point lighting; client-only TaCZ integration");
+        LOG.info("[Tacz/Sbw] Gunfire light 0.3.0-sbw.2: continuous GPU point lighting; TaCZ + optional Superb Warfare");
     }
     @Mod.EventBusSubscriber(modid=ID, value=Dist.CLIENT, bus=Mod.EventBusSubscriber.Bus.MOD)
     public static final class Resources {
+        @SubscribeEvent public static void setup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
+            event.enqueueWork(SbwIntegration::register);
+        }
         @SubscribeEvent public static void reload(RegisterClientReloadListenersEvent event) {
             event.registerReloadListener((ResourceManagerReloadListener) manager -> Client.reset());
         }
@@ -69,16 +74,19 @@ public final class SenkosGunfireLight {
             configure(); GunfireSources.onGunFire(event);
         }
         @SubscribeEvent public static void join(EntityJoinLevelEvent event) {
+            SbwIntegration.join(event);
             if(GunfireConfig.ENABLED.get() && GunfireConfig.BULLET_ENABLED.get())GunfireSources.onEntityJoin(event);
         }
         @SubscribeEvent public static void leave(EntityLeaveLevelEvent event) {
+            SbwIntegration.leave(event);
             if(GunfireConfig.ENABLED.get())GunfireSources.onEntityLeave(event);
         }
-        @SubscribeEvent public static void livingPre(RenderLivingEvent.Pre<?,?> event) { GunfireSources.onLivingPre(event); }
-        @SubscribeEvent public static void livingPost(RenderLivingEvent.Post<?,?> event) { GunfireSources.onLivingPost(event); }
+        @SubscribeEvent public static void livingPre(RenderLivingEvent.Pre<?,?> event) { GunfireSources.onLivingPre(event); SbwIntegration.livingPre(event); }
+        @SubscribeEvent public static void livingPost(RenderLivingEvent.Post<?,?> event) { GunfireSources.onLivingPost(event); SbwIntegration.livingPost(event); }
         @SubscribeEvent(priority=EventPriority.HIGHEST) public static void render(RenderLevelStageEvent event) {
             if(OculusCompat.isRenderShadow())return;
             if (event.getStage()==RenderLevelStageEvent.Stage.AFTER_SOLID_BLOCKS) {
+                LightPerformanceProfiler.beginFrame();
                 shaderPending=false;
                 cameraWorld=null;
                 configure();HandLighting.beginFrame();
@@ -90,6 +98,7 @@ public final class SenkosGunfireLight {
                 VIEW.set(RenderSystem.getModelViewMatrix()).mul(event.getPoseStack().m_85850_().m_252922_());
                 cameraWorld=Minecraft.m_91087_().f_91073_;
                 GunfireSources.captureWorldView(event.getPoseStack().m_85850_().m_252922_());
+                SbwIntegration.captureWorldView(event.getPoseStack().m_85850_().m_252922_());
                 return;
             }
             boolean shaders=OculusCompat.isUsingRenderPack();
@@ -113,8 +122,14 @@ public final class SenkosGunfireLight {
                 if(shaders) {
                     // Preserve world depth before Presence/post effects. Shader packs
                     // finish their material/composite stages before Forge AFTER_LEVEL.
-                    shaderPending=RENDERER.captureDepth();
-                } else RENDERER.render(PROJECTION,VIEW,LIGHTS,submitted);
+                    int timing=LightPerformanceProfiler.beginPass(LightPerformanceProfiler.WORLD);
+                    try { shaderPending=RENDERER.captureDepth(); }
+                    finally { LightPerformanceProfiler.endPass(timing); }
+                } else {
+                    int timing=LightPerformanceProfiler.beginPass(LightPerformanceProfiler.WORLD);
+                    try { RENDERER.render(PROJECTION,VIEW,LIGHTS,submitted); }
+                    finally { LightPerformanceProfiler.endPass(timing); }
+                }
                 if(!shaderPending)logStatus();
             } catch (RuntimeException | LinkageError ex) {
                 fail(ex);
@@ -125,7 +140,12 @@ public final class SenkosGunfireLight {
             boolean renderWorld=shaderPending;
             shaderPending=false;
             try {
-                if(renderWorld){RENDERER.renderCaptured(PROJECTION,VIEW,LIGHTS,submitted,noHandDepth);logStatus();}
+                if(renderWorld){
+                    int timing=LightPerformanceProfiler.beginPass(LightPerformanceProfiler.WORLD);
+                    try { RENDERER.renderCaptured(PROJECTION,VIEW,LIGHTS,submitted,noHandDepth); }
+                    finally { LightPerformanceProfiler.endPass(timing); }
+                    logStatus();
+                }
                 HandLighting.finishShaderFrame(noHandDepth);
             }
             catch(RuntimeException|LinkageError ex){fail(ex);}
@@ -151,11 +171,16 @@ public final class SenkosGunfireLight {
             GunfireSources.clear();world=null;cameraWorld=null;submitted=0;failed=false;shaderPending=false;lastStatus="idle";lastStatusAt=0;
             RENDERER.invalidate();
             HandLighting.reset();
+            LightPerformanceProfiler.clear();
         }
         @SubscribeEvent public static void commands(RegisterClientCommandsEvent event) {
             event.getDispatcher().register(Commands.m_82127_("gunfirelight")
+                .then(Commands.m_82127_("profile").executes(ctx->{
+                    LightPerformanceProfiler.start();
+                    ctx.getSource().m_288197_(() -> Component.m_237113_(LightPerformanceProfiler.status()),false);return 1;
+                }))
                 .then(Commands.m_82127_("status").executes(ctx->{
-                    ctx.getSource().m_288197_(() -> Component.m_237113_("Senkos Illuminated Gunfire: enabled="+GunfireConfig.ENABLED.get()+", tracked bullets="+GunfireSources.trackedBullets()+", joined/finished="+GunfireSources.joinedBullets()+"/"+GunfireSources.finishedBullets()+", submitted="+submitted+", tile overflow="+RENDERER.tileOverflow()+", world="+RENDERER.status()+", gun/hands="+HandLighting.status()+(failed?", suspended after error":"")),false);return 1;
+                    ctx.getSource().m_288197_(() -> Component.m_237113_("[Tacz/Sbw] Gunfire light: enabled="+GunfireConfig.ENABLED.get()+", tracked bullets="+GunfireSources.trackedBullets()+", joined/finished="+GunfireSources.joinedBullets()+"/"+GunfireSources.finishedBullets()+", submitted="+submitted+", tile overflow="+RENDERER.tileOverflow()+", world="+RENDERER.status()+", gun/hands="+HandLighting.status()+", "+SbwIntegration.status()+(failed?", suspended after error":"")),false);return 1;
                 })));
         }
     }

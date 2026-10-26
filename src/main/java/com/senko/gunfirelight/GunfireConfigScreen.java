@@ -8,7 +8,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 /** Ordinary player controls, applied on Save without reloading graphics resources. */
 public final class GunfireConfigScreen {
     public static Screen create(Screen parent) {
-        var b=ConfigBuilder.create().setParentScreen(parent).setTitle(text("Senkos Illuminated Gunfire"))
+        var b=ConfigBuilder.create().setParentScreen(parent).setTitle(text("[Tacz/Sbw] Gunfire light"))
             .setSavingRunnable(GunfireConfig.SPEC::save).setShouldListSmoothScroll(true);
         var e=b.entryBuilder();
         var general=b.getOrCreateCategory(text("General"));

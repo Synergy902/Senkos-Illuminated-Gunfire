@@ -95,7 +95,16 @@ public final class GunfireLightRenderer implements AutoCloseable {
             GL11.glDisable(GL11.GL_SCISSOR_TEST);GL11.glDisable(GL30.GL_FRAMEBUFFER_SRGB);
             GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER,source);GL11.glReadBuffer(GL30.GL_COLOR_ATTACHMENT0);
             GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER,sceneFbo);
-            GL30.glBlitFramebuffer(0,0,width,height,0,0,width,height,GL11.GL_COLOR_BUFFER_BIT|(captured?0:GL11.GL_DEPTH_BUFFER_BIT),GL11.GL_NEAREST);
+            int x0=tiles.left*width/LightTiles.COLUMNS,y0=tiles.bottom*height/LightTiles.ROWS,x1=(tiles.right*width+LightTiles.COLUMNS-1)/LightTiles.COLUMNS,y1=(tiles.top*height+LightTiles.ROWS-1)/LightTiles.ROWS;
+            // Scene color is sampled only by fragments inside this exact scissor.
+            // Keep full depth: contact shadows and normal reconstruction sample neighbors.
+            // Large native passes retain the original single combined blit.
+            if(captured || (long)(x1-x0)*(y1-y0)*2 < (long)width*height){
+                if(!captured)GL30.glBlitFramebuffer(0,0,width,height,0,0,width,height,GL11.GL_DEPTH_BUFFER_BIT,GL11.GL_NEAREST);
+                GL30.glBlitFramebuffer(x0,y0,x1,y1,x0,y0,x1,y1,GL11.GL_COLOR_BUFFER_BIT,GL11.GL_NEAREST);
+            }else{
+                GL30.glBlitFramebuffer(0,0,width,height,0,0,width,height,GL11.GL_COLOR_BUFFER_BIT|(captured?0:GL11.GL_DEPTH_BUFFER_BIT),GL11.GL_NEAREST);
+            }
             bind(2,lightTexture);lightBuffer.clear();lightBuffer.put(tiles.lights,0,tiles.lightCount*8).flip();GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D,0,0,0,2,tiles.lightCount,GL11.GL_RGBA,GL11.GL_FLOAT,lightBuffer);
             bind(3,tileTexture);tileBuffer.clear();tileBuffer.put(tiles.indices).flip();GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D,0,0,0,LightTiles.STRIDE,LightTiles.COLUMNS*LightTiles.ROWS,GL30.GL_RED_INTEGER,GL11.GL_UNSIGNED_SHORT,tileBuffer);
             GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER,source);
@@ -103,7 +112,6 @@ public final class GunfireLightRenderer implements AutoCloseable {
             for(int i=0;i<8;i++)GL11.glDisable(GL30.GL_CLIP_DISTANCE0+i);
             GL30.glColorMaski(0,true,true,true,false);GL30.glEnablei(GL11.GL_BLEND,0);
             BlendDispatch.set(GL14.GL_FUNC_ADD,GL14.GL_FUNC_ADD,GL11.GL_ONE,GL11.GL_ONE,GL11.GL_ZERO,GL11.GL_ONE);
-            int x0=tiles.left*width/LightTiles.COLUMNS,y0=tiles.bottom*height/LightTiles.ROWS,x1=(tiles.right*width+LightTiles.COLUMNS-1)/LightTiles.COLUMNS,y1=(tiles.top*height+LightTiles.ROWS-1)/LightTiles.ROWS;
             GL11.glEnable(GL11.GL_SCISSOR_TEST);GL11.glScissor(x0,y0,x1-x0,y1-y0);
             GL20.glUseProgram(program);GL30.glBindVertexArray(vao);bind(0,sceneColor);bind(1,sceneDepth);
             GL20.glUniform1i(uScene,0);GL20.glUniform1i(uDepth,1);GL20.glUniform1i(uLights,2);GL20.glUniform1i(uTiles,3);GL20.glUniform2f(uSize,width,height);
@@ -115,7 +123,7 @@ public final class GunfireLightRenderer implements AutoCloseable {
             GL20.glUniform4f(uWarp,g>1?warp[0]:.5f,g>1?warp[1]:.5f,g>1?warp[2]:.3f,g>1?warp[3]:.4f);GL20.glUniform1f(uGain,Math.max(1,g));
             GL11.glDrawArrays(GL11.GL_TRIANGLES,0,3);
             renderedFrames++;status="active";return true;
-        }catch(RuntimeException|LinkageError failure){close();disabled=true;status="GPU pass unavailable: "+failure.getMessage();System.err.println("[Senkos Illuminated Gunfire] "+status);return false;}
+        }catch(RuntimeException|LinkageError failure){close();disabled=true;status="GPU pass unavailable: "+failure.getMessage();System.err.println("[[Tacz/Sbw] Gunfire light] "+status);return false;}
     }
     private static void unpackDefaults(){GL13.glActiveTexture(GL13.GL_TEXTURE0);GL15.glBindBuffer(GL21.GL_PIXEL_UNPACK_BUFFER,0);GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT,1);GL11.glPixelStorei(GL11.GL_UNPACK_ROW_LENGTH,0);GL11.glPixelStorei(GL11.GL_UNPACK_SKIP_ROWS,0);GL11.glPixelStorei(GL11.GL_UNPACK_SKIP_PIXELS,0);GL11.glPixelStorei(GL11.GL_UNPACK_SWAP_BYTES,GL11.GL_FALSE);}
     private static boolean finite(Matrix4f m){return m.isFinite();}

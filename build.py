@@ -24,9 +24,9 @@ argfile.write_text('\n'.join('"' + a.replace('\\', '/') + '"' for a in args), en
 subprocess.run([str(compiler), '@' + str(argfile)], check=True)
 manifest = ('Manifest-Version: 1.0\r\n'
             'MixinConfigs: senkosgunfirelight.mixins.json\r\n'
-            'Implementation-Title: Senkos Illuminated Gunfire\r\n'
-            'Implementation-Version: 0.2.7\r\n\r\n')
-out = ROOT / 'build/libs/Senkos Illuminated Gunfire-1.20.1-0.2.7.jar'
+            'Implementation-Title: [Tacz/Sbw] Gunfire light\r\n'
+            'Implementation-Version: 0.3.0-sbw.2\r\n\r\n')
+out = ROOT / 'build/libs/Tacz-Sbw-Gunfire-Light-1.20.1-0.3.0-sbw.2.jar'
 out.parent.mkdir(parents=True, exist_ok=True)
 entries = {'META-INF/MANIFEST.MF': manifest.encode()}
 for base in [CLASSES, ROOT / 'src/main/resources']:

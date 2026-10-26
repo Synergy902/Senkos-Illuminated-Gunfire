@@ -1,6 +1,8 @@
 package com.senko.gunfirelight.source;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.senko.gunfirelight.compat.SbwIntegration;
+import com.senko.gunfirelight.render.LightPerformanceProfiler;
 import com.tacz.guns.api.TimelessAPI;
 import com.tacz.guns.api.GunProperties;
 import com.tacz.guns.api.DefaultAssets;
@@ -212,15 +214,29 @@ public final class GunfireSources {
     }
 
     public static int collect(float partial, double cx, double cy, double cz, float[] output, int limit) {
+        long timing=LightPerformanceProfiler.active()?System.nanoTime():0;
+        try {
         updateSources(partial, cx, cy, cz);
         return REGISTRY.collect(GunfireLightApi.clock, cx, cy, cz, maximumDistance, output, limit);
+        } finally { if(timing!=0)LightPerformanceProfiler.recordSources(System.nanoTime()-timing); }
     }
 
     public static int collectForHand(float partial, double cx, double cy, double cz, float[] output, int limit) {
+        long timing=LightPerformanceProfiler.active()?System.nanoTime():0;
+        try {
         updateSources(partial, cx, cy, cz);
         Muzzle own = MUZZLES.get(Minecraft.m_91087_().f_91074_);
         return REGISTRY.collectExcluding(GunfireLightApi.clock, cx, cy, cz, maximumDistance,
             output, limit, own == null ? 0 : own.handle);
+        } finally { if(timing!=0)LightPerformanceProfiler.recordSources(System.nanoTime()-timing); }
+    }
+
+    public static int collectForHandExcluding(float partial, double cx, double cy, double cz, float[] output, int limit, long handle) {
+        long timing=LightPerformanceProfiler.active()?System.nanoTime():0;
+        try {
+        updateSources(partial, cx, cy, cz);
+        return REGISTRY.collectExcluding(GunfireLightApi.clock, cx, cy, cz, maximumDistance, output, limit, handle);
+        } finally { if(timing!=0)LightPerformanceProfiler.recordSources(System.nanoTime()-timing); }
     }
 
     /** Radius and RGB radiance of the current first-person flash; caller supplies its exact current pose. */
@@ -242,6 +258,7 @@ public final class GunfireSources {
         ensureLevel(mc);
         partial = bounded(partial, 0, 1, 0);
         double now = clock(mc, partial); GunfireLightApi.clock = now;
+        SbwIntegration.update(partial);
         for (int i = BULLETS.size() - 1; i >= 0; i--) {
             Bullet b = BULLETS.get(i); EntityKineticBullet e = b.entity;
             boolean canceledJoin = b.joinEvent != null && b.joinEvent.isCanceled();
@@ -306,6 +323,7 @@ public final class GunfireSources {
     }
 
     public static void clear() {
+        SbwIntegration.clear();
         BULLETS.clear(); BULLET_INDEX.clear(); MUZZLES.clear(); REGISTRY.clear();
         level = null; renderingOwner = null; worldViewValid = false; GunfireLightApi.clock = 0;
         clipTick = Long.MIN_VALUE; clipsThisTick = 0;

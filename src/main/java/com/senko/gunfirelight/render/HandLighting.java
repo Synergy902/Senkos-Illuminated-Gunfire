@@ -22,13 +22,16 @@ public final class HandLighting {
     private static boolean enabled=true, gunSeen, muzzleSeen, failed;
     private static float strength=1, partial;
     private static int capturedCount;
+    private static boolean externalGun;
+    private static long externalHandle;
+    private static final float[] EXTERNAL = new float[4];
     private static String status="idle";
 
     private HandLighting(){}
     public static void configure(boolean on,float multiplier,float exposure,float nightVisibility,float distanceFalloff){
         enabled=on;strength=Math.max(0,Math.min(4,multiplier));GPU.configure(exposure,nightVisibility,distanceFalloff);
     }
-    public static void beginFrame(){gunSeen=muzzleSeen=false;capturedCount=0;GPU.cancelCapture();}
+    public static void beginFrame(){gunSeen=muzzleSeen=externalGun=false;externalHandle=0;capturedCount=0;GPU.cancelCapture();}
     public static void captureBase(PoseStack pose,float tick){
         if(!enabled||failed||OculusCompat.isRenderShadow())return;
         BASE.set(pose.m_85850_().m_252922_());partial=tick;
@@ -37,6 +40,7 @@ public final class HandLighting {
         if(!enabled||failed||OculusCompat.isRenderShadow()||
             (context!=ItemDisplayContext.FIRST_PERSON_RIGHT_HAND&&context!=ItemDisplayContext.FIRST_PERSON_LEFT_HAND))return;
         gunSeen=true;PROJECTION.set(RenderSystem.getProjectionMatrix());
+        externalGun=false;
         if(model.getMuzzleFlashPosPath()==null)return;
         pose.m_85836_();
         try{
@@ -45,12 +49,23 @@ public final class HandLighting {
             muzzleSeen=Float.isFinite(MUZZLE.x)&&Float.isFinite(MUZZLE.y)&&Float.isFinite(MUZZLE.z)&&MUZZLE.lengthSquared()<100;
         }finally{pose.m_85849_();}
     }
+    /** The integration supplies the animated muzzle in the actual hand render view. */
+    public static void captureExternalGun(Matrix4f muzzlePose,float tick,long handle,float radius,float red,float green,float blue){
+        if(!enabled||failed||OculusCompat.isRenderShadow()||muzzlePose==null||!muzzlePose.isFinite())return;
+        MUZZLE.set(muzzlePose.m30(),muzzlePose.m31(),muzzlePose.m32());
+        muzzleSeen=MUZZLE.isFinite()&&MUZZLE.lengthSquared()<100;
+        gunSeen=true;externalGun=true;externalHandle=handle;partial=tick;
+        PROJECTION.set(RenderSystem.getProjectionMatrix());
+        EXTERNAL[0]=radius;EXTERNAL[1]=red;EXTERNAL[2]=green;EXTERNAL[3]=blue;
+    }
     private static int collect(){
         Minecraft mc=Minecraft.m_91087_();
         if(mc.f_91073_==null||mc.f_91074_==null||!gunSeen||!enabled||failed||strength<=0)return 0;
         var camera=mc.f_91063_.m_109153_();var at=camera.m_90583_();
-        boolean own=muzzleSeen&&GunfireSources.localMuzzle(partial,LOCAL);
-        int count=own?GunfireSources.collectForHand(partial,at.f_82479_,at.f_82480_,at.f_82481_,LIGHTS,15)
+        boolean own=muzzleSeen&&(externalGun ? EXTERNAL[1]>0||EXTERNAL[2]>0||EXTERNAL[3]>0 : GunfireSources.localMuzzle(partial,LOCAL));
+        if(own&&externalGun)System.arraycopy(EXTERNAL,0,LOCAL,0,4);
+        int count=own&&externalGun?GunfireSources.collectForHandExcluding(partial,at.f_82479_,at.f_82480_,at.f_82481_,LIGHTS,15,externalHandle)
+            :own?GunfireSources.collectForHand(partial,at.f_82479_,at.f_82480_,at.f_82481_,LIGHTS,15)
             :GunfireSources.collect(partial,at.f_82479_,at.f_82480_,at.f_82481_,LIGHTS,16);
         INVERSE_CAMERA.set(camera.m_253121_()).conjugate();
         int kept=0;
@@ -71,25 +86,37 @@ public final class HandLighting {
     }
     /** Main hand draw has completed and flushed, before fire/water/full-screen overlays. */
     public static void renderNative(){
-        try{int count=collect();if(count>0){GPU.render(PROJECTION,LIGHTS,count);status=GPU.status();}}
+        try{int count=collect();if(count>0){
+            int timing=LightPerformanceProfiler.beginPass(LightPerformanceProfiler.HAND);
+            try { GPU.render(PROJECTION,LIGHTS,count);status=GPU.status(); }
+            finally { LightPerformanceProfiler.endPass(timing); }
+        }}
         catch(RuntimeException|LinkageError ex){fail(ex);}
         gunSeen=muzzleSeen=false;
     }
     /** Oculus hands have already been drawn into the G-buffer at this stage. */
     public static void captureShaderDepth(){
         capturedCount=0;
-        try{int count=collect();if(count>0){if(GPU.captureDepth())capturedCount=count;status=GPU.status();}}
+        try{int count=collect();if(count>0){
+            int timing=LightPerformanceProfiler.beginPass(LightPerformanceProfiler.HAND);
+            try { if(GPU.captureDepth())capturedCount=count;status=GPU.status(); }
+            finally { LightPerformanceProfiler.endPass(timing); }
+        }}
         catch(RuntimeException|LinkageError ex){fail(ex);}
     }
     public static void finishShaderFrame(int noHandDepth){
         // No simulation/selection work here: this frame's hand geometry, projection
         // and source positions were frozen together when its depth was captured.
-        try{if(capturedCount>0&&GPU.hasCapture()){GPU.renderCaptured(PROJECTION,LIGHTS,capturedCount,noHandDepth);status=GPU.status();}}
+        try{if(capturedCount>0&&GPU.hasCapture()){
+            int timing=LightPerformanceProfiler.beginPass(LightPerformanceProfiler.HAND);
+            try { GPU.renderCaptured(PROJECTION,LIGHTS,capturedCount,noHandDepth);status=GPU.status(); }
+            finally { LightPerformanceProfiler.endPass(timing); }
+        }}
         catch(RuntimeException|LinkageError ex){fail(ex);}
         capturedCount=0;
         gunSeen=muzzleSeen=false;
     }
-    private static void fail(Throwable ex){failed=true;status="disabled after hand lighting failure: "+ex.getMessage();System.err.println("[Senkos Illuminated Gunfire] "+status);}
+    private static void fail(Throwable ex){failed=true;status="disabled after hand lighting failure: "+ex.getMessage();System.err.println("[[Tacz/Sbw] Gunfire light] "+status);}
     public static String status(){return status;}
-    public static void reset(){GPU.close();gunSeen=muzzleSeen=failed=false;capturedCount=0;status="idle";}
+    public static void reset(){GPU.close();gunSeen=muzzleSeen=failed=externalGun=false;externalHandle=0;capturedCount=0;status="idle";}
 }
